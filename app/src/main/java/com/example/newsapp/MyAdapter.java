@@ -6,11 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -19,6 +17,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+    private static final String TAG = "MyAdapter";
     private List<NewsData> mDataset;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -50,34 +49,31 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(MyAdapter.MyViewHolder holder, int position) {
         NewsData news = mDataset.get(position);
+        Log.e(TAG, "news - title: " + news.getTitle() + "  content: " + news.getContent() + "  url: " + news.getUrlToImage());
+
         String title = news.getTitle();
         String content = news.getContent();
         String image = news.getUrlToImage();
 
 
-        if(title != "") {
+        if (title != "") {
             holder.TextView_title.setText(title);
-        }
-        else{
+        } else {
             holder.TextView_title.setText("NO DATA");
         }
 
 
-
-        if(content != "") {
+        if (content != "") {
             holder.TextView_Content.setText(content);
-        }
-        else{
+        } else {
             holder.TextView_Content.setText("NO DATA");
         }
 
 
-
-        if(image != "") {
+        if (image != "") {
             Uri uri = Uri.parse(image);
             holder.ImageView_title.setImageURI(uri);
-        }
-        else{
+        } else {
 //            holder.ImageView_title.setText("NO DATA");
         }
 
@@ -86,7 +82,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public int getItemCount() {
-        
+
         //삼항 연산자
         return mDataset == null ? 0 : mDataset.size();
     }
